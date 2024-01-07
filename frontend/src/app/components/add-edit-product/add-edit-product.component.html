@@ -3,15 +3,30 @@
             <div class="card-header text-center">Adicionar novo produto</div>
 
             <div class="card-body">
-                  <input type="text" class="form-control" placeholder="digite seu nome">
-                  <input type="text" class="form-control mt-4" placeholder="digite a descrição do produto">
-                  <input type="text" class="form-control mt-4" placeholder="digite a quantidade em estoque">
-                  <input type="text" class="form-control mt-4" placeholder="digite o preço">
+                  <form [formGroup]="form" (ngSubmit)="addProduct()">
 
-                  <div class="d-flex justify-content-between mt-4">
-                        <button routerLink="/list-products" type="button" class="btn btn-secondary">Voltar</button>
-                        <button type="button" class="btn btn-info">Salvar</button>
-                  </div>
+                        <input formControlName="name" type="text" class="form-control" placeholder="digite seu nome">
+
+                        <span *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">O campo nome é <span>obrigatório</span></span>
+
+                        <input formControlName="description" type="text" class="form-control mt-4" placeholder="digite a descrição do produto">
+
+                        <span *ngIf="form.get('description')?.hasError('required') && form.get('description')?.touched">O campo descrição é <span>obrigatório</span></span>
+
+                        <input formControlName="price" type="number" class="form-control mt-4" placeholder="digite a quantidade em estoque">
+
+                        <span *ngIf="form.get('price')?.hasError('required') && form.get('price')?.touched">O campo preço é <span>obrigatório</span></span>
+
+                        <input formControlName="stock" type="number" class="form-control mt-4" placeholder="digite o preço">
+      
+                        <span *ngIf="form.get('stock')?.hasError('required') && form.get('stock')?.touched">O campo estoque é <span>obrigatório</span></span>
+
+                        <div class="d-flex justify-content-between mt-4">
+                              <button routerLink="/list-products" type="button" class="btn btn-secondary">Voltar</button>
+
+                              <button [disabled]="form.invalid" type="submit" class="btn btn-info">Salvar</button>
+                        </div>
+                  </form>
             </div>
       </div>
 </div>

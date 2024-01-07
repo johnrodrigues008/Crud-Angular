@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
-import routerProduct from '../routes/productRouter'
+import routerProduct from '../routes/productRouter';
+import db from '../db/connection';
 
 class Server {
 
@@ -12,6 +13,7 @@ class Server {
             this.listen();
             this.middlewares();
             this.routes();
+            this.dbConnect();
       };
 
       listen() {
@@ -34,7 +36,10 @@ class Server {
             this.app.use("/api/produtos", routerProduct);
       };
 
-
+      async dbConnect() {
+            await db.authenticate();
+            console.log('Conexão com o banco de dados realizada com sucesso!');
+      };
 }
 
 export default Server;
